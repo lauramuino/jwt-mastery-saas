@@ -1,0 +1,6 @@
+import os
+
+SECRET_KEY = os.getenv("JWT_SECRET")
+ALGORITHM = os.getenv("JWT_ALGORITHM")
+DATABASE_URL = os.getenv("DATABASE_URL")
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
