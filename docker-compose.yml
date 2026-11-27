@@ -24,6 +24,7 @@ services:
       timeout: 3s
       retries: 3
 
+
   auth-service:
     build: ./auth_service
     ports:
@@ -32,9 +33,23 @@ services:
       - .env
     volumes:
       - ./auth_service:/app
+      - ./keys:/keys:ro
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+
+
+  billing-service:
+    build: ./billing_service
+    ports:
+      - "8001:8001"
+    env_file:
+      - .env
+    volumes:
+      - ./billing_service:/app
+      - ./keys/public.pem:/keys/public.pem:ro
 
 volumes:
   postgres_data:
